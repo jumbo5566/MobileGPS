@@ -41,6 +41,8 @@ m_minTime(0U),
 m_maxTime(0U),
 m_debug(false),
 m_daemon(false),
+m_logDisplayLevel(0U),
+m_logFileLevel(0U),
 m_logFilePath(),
 m_logFileRoot(),
 m_gpsPort(),
@@ -107,6 +109,10 @@ bool CConf::read()
 			  m_logFilePath = value;
 		  else if (::strcmp(key, "FileRoot") == 0)
 			  m_logFileRoot = value;
+		  else if (::strcmp(key, "FileLevel") == 0)
+			  m_logFileLevel = (unsigned int)::atoi(value);
+		  else if (::strcmp(key, "DisplayLevel") == 0)
+			  m_logDisplayLevel = (unsigned int)::atoi(value);
 	  } else if (section == SECTION_GPS) {
 		  if (::strcmp(key, "Port") == 0)
 			  m_gpsPort = value;
@@ -154,14 +160,24 @@ bool CConf::getDaemon() const
 	return m_daemon;
 }
 
+unsigned int CConf::getLogDisplayLevel() const
+{
+	return m_logDisplayLevel;
+}
+
+unsigned int CConf::getLogFileLevel() const
+{
+	return m_logFileLevel;
+}
+
 std::string CConf::getLogFilePath() const
 {
-  return m_logFilePath;
+	return m_logFilePath;
 }
 
 std::string CConf::getLogFileRoot() const
 {
-  return m_logFileRoot;
+	return m_logFileRoot;
 }
 
 std::string CConf::getGPSPort() const
